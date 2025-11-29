@@ -1,0 +1,7 @@
+{
+  "name": "GenzAI",
+  "description": "A minimalist, multi-model AI chatbot featuring a sleek gradient interface and dynamic model selection.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}

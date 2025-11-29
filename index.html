@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GenzAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              gray: {
+                750: '#2d3748',
+                850: '#1a202c',
+                950: '#0d1117',
+              }
+            },
+            animation: {
+              'spin-slow': 'spin-slow 4s linear infinite',
+            },
+            keyframes: {
+              'spin-slow': {
+                '0%': { transform: 'rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+      }
+      @keyframes gradient-x {
+        0%, 100% {
+          background-size: 200% 200%;
+          background-position: left center;
+        }
+        50% {
+          background-size: 200% 200%;
+          background-position: right center;
+        }
+      }
+      .animate-gradient {
+        animation: gradient-x 3s ease infinite;
+      }
+      
+      @keyframes slideUpFade {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .animate-slide-up {
+        animation: slideUpFade 0.5s ease-out forwards;
+      }
+
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+
+      /* Markdown Styles */
+      .markdown-content p {
+        margin-bottom: 0.75rem;
+      }
+      .markdown-content p:last-child {
+        margin-bottom: 0;
+      }
+      .markdown-content strong {
+        font-weight: 600;
+        color: inherit;
+      }
+      .markdown-content ul {
+        list-style-type: disc;
+        padding-left: 1.25rem;
+        margin-bottom: 0.75rem;
+      }
+      .markdown-content ol {
+        list-style-type: decimal;
+        padding-left: 1.25rem;
+        margin-bottom: 0.75rem;
+      }
+      .markdown-content li {
+        margin-bottom: 0.25rem;
+      }
+      .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+        font-weight: 700;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        color: inherit;
+      }
+      .markdown-content code {
+        background-color: rgba(0,0,0,0.05);
+        padding: 0.1rem 0.3rem;
+        border-radius: 0.25rem;
+        font-family: monospace;
+        font-size: 0.9em;
+        color: #db2777; /* pink-600 */
+      }
+      .dark .markdown-content code {
+        background-color: rgba(255,255,255,0.1);
+        color: #f472b6; /* pink-400 */
+      }
+      .markdown-content pre {
+        background-color: #1f2937;
+        color: #f3f4f6;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        overflow-x: auto;
+        margin-bottom: 0.75rem;
+      }
+      .markdown-content pre code {
+        background-color: transparent;
+        color: inherit;
+        padding: 0;
+      }
+      .markdown-content blockquote {
+        border-left: 3px solid #e5e7eb;
+        padding-left: 1rem;
+        font-style: italic;
+        color: #4b5563;
+      }
+      .dark .markdown-content blockquote {
+        border-left-color: #374151;
+        color: #9ca3af;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "react-markdown": "https://esm.sh/react-markdown@9?bundle",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4"
+  }
+}
+</script>
+</head>
+  <body class="bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-sans antialiased h-screen w-screen overflow-hidden selection:bg-purple-100 dark:selection:bg-purple-900 transition-colors duration-300">
+    <div id="root"></div>
+  </body>
+</html>
