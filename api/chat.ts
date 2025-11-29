@@ -1,8 +1,7 @@
 import { GoogleGenAI } from "@google/genai";
 
-export const config = {
-  runtime: 'edge',
-};
+// Menggunakan default Node.js Serverless Runtime (bukan Edge) untuk kompatibilitas SDK yang lebih baik
+// export const config = { runtime: 'edge' }; 
 
 export default async function handler(request: Request) {
   if (request.method !== 'POST') {
@@ -10,7 +9,7 @@ export default async function handler(request: Request) {
   }
 
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.API_KEY;
     
     if (!apiKey) {
       return new Response(JSON.stringify({ error: 'Server configuration error: API Key missing' }), { status: 500 });
@@ -40,25 +39,15 @@ export default async function handler(request: Request) {
       : "Kamu adalah GenzAI, asisten AI yang ramah dan membantu. Kamu bisa melihat gambar, menonton video, dan membaca dokumen PDF/Teks jika pengguna memberikannya. Saat menganalisis video atau dokumen, perhatikan detail penting. Jawablah selalu dalam Bahasa Indonesia yang luwes.";
 
     // Persiapkan Chat / Generate Request
-    // Jika history kosong atau model image gen, kita gunakan generateContent langsung (stateless)
-    // Namun untuk chat history, kita perlu membangun konteks 'contents'
-    
     let contents = [];
 
-    // 1. Masukkan History (Kecuali pesan terakhir yang baru dikirim user, karena akan kita gabung dengan media)
-    // Kita harus mapping format Message frontend ke format Content SDK
+    // 1. Masukkan History
     if (history && history.length > 0) {
-      // Filter pesan terakhir dari user karena akan diproses terpisah dengan lampiran
       const previousMessages = history.slice(0, -1); 
-      
       contents = previousMessages.map((msg: any) => {
-        const parts = [{ text: msg.text }];
-        // Note: Untuk history lampiran lama, idealnya kita kirim ulang datanya jika ingin konteks penuh,
-        // tapi untuk efisiensi bandwidth seringkali text-only history sudah cukup kecuali user mereferensikan gambar lama.
-        // Di implementasi sederhana ini, kita kirim teks riwayatnya saja.
         return {
           role: msg.role,
-          parts: parts
+          parts: [{ text: msg.text }]
         };
       });
     }
@@ -113,13 +102,6 @@ export default async function handler(request: Request) {
           }
         }
       }
-    }
-
-    // Fallback text check
-    if (!responseText && !generatedImage) {
-        // Coba akses property text langsung jika ada (tergantung versi SDK)
-        // @ts-ignore
-        if (response.text) responseText = response.text;
     }
 
     return new Response(JSON.stringify({ text: responseText, generatedImage }), {
